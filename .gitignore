@@ -30,3 +30,17 @@
 *.exe
 *.out
 *.app
+
+# Build
+build/
+.cache/
+cmake-build-debug/
+
+# VSCode
+.vscode/
+
+# CLion
+.idea/
+
+# Cursor
+.cursor/

@@ -1,0 +1,72 @@
+# File Organizer Configuration Example
+# Source directory to organize
+SOURCE_DIR: /tmp/test_source
+
+# Base directory where sorted items will be moved
+TARGET_BASE_DIR: /tmp/organized
+
+# Optional: Dry Run Mode (true/false, default: false)
+DRY_RUN: true
+
+# Optional: Logging Configuration
+LOG_LEVEL: INFO # DEBUG, INFO, WARNING, ERROR
+LOG_FILE: file_organizer.log
+
+# Rule Definitions
+# Rules are evaluated by PRIORITY (lower number = higher priority)
+# The first matching rule will be applied.
+
+RULE:
+  TARGET_PATH: documents/pdf
+  PRIORITY: 10
+  APPLIES_TO: file
+  CONDITIONS:
+    EXTENSION: .pdf
+  END_CONDITIONS
+END_RULE
+
+RULE:
+  TARGET_PATH: documents/text
+  PRIORITY: 20
+  APPLIES_TO: file
+  CONDITIONS:
+    EXTENSION: .txt
+  END_CONDITIONS
+END_RULE
+
+RULE:
+  TARGET_PATH: images/photos
+  PRIORITY: 30
+  APPLIES_TO: file
+  CONDITIONS:
+    EXTENSION: .jpg
+  END_CONDITIONS
+END_RULE
+
+RULE:
+  TARGET_PATH: images/photos
+  PRIORITY: 31
+  APPLIES_TO: file
+  CONDITIONS:
+    EXTENSION: .jpeg
+  END_CONDITIONS
+END_RULE
+
+RULE:
+  TARGET_PATH: images/graphics
+  PRIORITY: 32
+  APPLIES_TO: file
+  CONDITIONS:
+    EXTENSION: .png
+  END_CONDITIONS
+END_RULE
+
+# Catch-all rule for items not matching other rules
+RULE:
+  TARGET_PATH: others
+  PRIORITY: 1000
+  APPLIES_TO: any
+  CONDITIONS:
+    # No specific conditions, matches anything not caught by previous rules
+  END_CONDITIONS
+END_RULE 
