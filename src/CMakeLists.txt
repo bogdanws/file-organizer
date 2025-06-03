@@ -18,7 +18,7 @@ set(HEADERS
     core/DirectoryOrganizer.h
     rules/ConfigurableRule.h
     rules/ISortingRule.h
-    rules/ICondition.h
+        conditions/ICondition.h
     conditions/ExtensionCondition.h
     models/ItemRepresentation.h
 )

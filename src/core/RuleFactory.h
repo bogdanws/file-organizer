@@ -5,7 +5,7 @@
 #include <functional>
 #include <string>
 #include "rules/ISortingRule.h"
-#include "rules/ICondition.h"
+#include "conditions/ICondition.h"
 #include "ConfigurationParser.h"
 
 class RuleFactory {

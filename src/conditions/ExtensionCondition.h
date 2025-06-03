@@ -1,6 +1,6 @@
 #pragma once
 
-#include "rules/ICondition.h"
+#include "ICondition.h"
 #include <string>
 
 class ExtensionCondition : public ICondition {

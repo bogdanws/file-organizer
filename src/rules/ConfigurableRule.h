@@ -1,14 +1,14 @@
 #pragma once
 
 #include "rules/ISortingRule.h"
-#include "rules/ICondition.h"
+#include "conditions/ICondition.h"
 #include <vector>
 #include <memory>
 #include <filesystem>
 
 class ConfigurableRule : public ISortingRule {
 public:
-    ConfigurableRule(std::filesystem::path  targetPath, int priority);
+    ConfigurableRule(std::filesystem::path targetPath, int priority);
     
     // Add a condition to this rule
     void addCondition(std::unique_ptr<ICondition> condition);
