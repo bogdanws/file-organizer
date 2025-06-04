@@ -35,6 +35,7 @@
 build/
 .cache/
 cmake-build-debug/
+compile_commands.json
 
 # VSCode
 .vscode/
