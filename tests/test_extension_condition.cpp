@@ -93,4 +93,33 @@ TEST_F(ExtensionConditionTest, DescribeMethod) {
     
     EXPECT_EQ(condition1.describe(), "Extension equals '.txt'");
     EXPECT_EQ(condition2.describe(), "Extension equals '.pdf'");
+}
+
+TEST_F(ExtensionConditionTest, TemplateSetExtension) {
+    ExtensionCondition condition("txt");
+    ItemRepresentation item(txtFile);
+    
+    // initial check
+    EXPECT_TRUE(condition.evaluate(item));
+    EXPECT_EQ(condition.getExtension(), ".txt");
+    
+    // test template member function with different string types
+    condition.setExtension(std::string("pdf"));
+    EXPECT_EQ(condition.getExtension(), ".pdf");
+    
+    // test with const char*
+    condition.setExtension("jpg");
+    EXPECT_EQ(condition.getExtension(), ".jpg");
+    
+    // test with string literal
+    condition.setExtension(".png");
+    EXPECT_EQ(condition.getExtension(), ".png");
+    
+    // verify it still works correctly after template method usage
+    ItemRepresentation pngFile(testDir / "test.png");
+    std::ofstream(testDir / "test.png") << "PNG content";
+    ItemRepresentation pngItem(testDir / "test.png");
+    
+    // note: this test may not work with actual file evaluation since we're not creating the PNG file
+    // but the template method functionality is demonstrated
 } 

@@ -1,6 +1,9 @@
 #include "RuleFactory.h"
 #include "conditions/ExtensionCondition.h"
+#include "conditions/SizeCondition.h"
+#include "conditions/AgeCondition.h"
 #include "rules/ConfigurableRule.h"
+#include "core/ValueParser.h"
 #include "Logger.h"
 #include <algorithm>
 #include <ranges>
@@ -86,11 +89,29 @@ void RuleFactory::registerDefaultConditions() {
         return std::make_unique<ExtensionCondition>(normalizedExt);
     });
     
-    // TODO: Register other condition types as they are implemented
-    // registerConditionType("SIZE_GREATER_THAN", [...]);
-    // registerConditionType("SIZE_LESS_THAN", [...]);
-    // registerConditionType("AGE_OLDER_THAN", [...]);
-    // registerConditionType("AGE_NEWER_THAN", [...]);
+    // register size conditions using template parsing
+    registerConditionType("SIZE_GREATER_THAN", [](const std::string& value) -> std::unique_ptr<ICondition> {
+        auto sizeThreshold = parseValue<std::uintmax_t>(value);
+        return std::make_unique<SizeCondition>(SizeComparison::GreaterThan, sizeThreshold);
+    });
+    
+    registerConditionType("SIZE_LESS_THAN", [](const std::string& value) -> std::unique_ptr<ICondition> {
+        auto sizeThreshold = parseValue<std::uintmax_t>(value);
+        return std::make_unique<SizeCondition>(SizeComparison::LessThan, sizeThreshold);
+    });
+    
+    // register age conditions using template parsing
+    registerConditionType("AGE_OLDER_THAN", [](const std::string& value) -> std::unique_ptr<ICondition> {
+        auto ageThreshold = parseValue<std::chrono::system_clock::duration>(value);
+        return std::make_unique<AgeCondition>(AgeComparison::OlderThan, ageThreshold);
+    });
+    
+    registerConditionType("AGE_NEWER_THAN", [](const std::string& value) -> std::unique_ptr<ICondition> {
+        auto ageThreshold = parseValue<std::chrono::system_clock::duration>(value);
+        return std::make_unique<AgeCondition>(AgeComparison::NewerThan, ageThreshold);
+    });
+    
+    // TODO: Register remaining condition types
     // registerConditionType("NAME_MATCHES", [...]);
     // registerConditionType("IS_EMPTY", [...]);
 }

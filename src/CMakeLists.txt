@@ -6,6 +6,8 @@ set(SOURCES
     core/DirectoryOrganizer.cpp
     rules/ConfigurableRule.cpp
     conditions/ExtensionCondition.cpp
+    conditions/SizeCondition.cpp
+    conditions/AgeCondition.cpp
     models/ItemRepresentation.cpp
 )
 
@@ -15,11 +17,15 @@ set(HEADERS
     core/Logger.h
     core/ConfigurationParser.h
     core/RuleFactory.h
+    core/RuleParameter.h
+    core/ValueParser.h
     core/DirectoryOrganizer.h
     rules/ConfigurableRule.h
     rules/ISortingRule.h
-        conditions/ICondition.h
+    conditions/ICondition.h
     conditions/ExtensionCondition.h
+    conditions/SizeCondition.h
+    conditions/AgeCondition.h
     models/ItemRepresentation.h
 )
 

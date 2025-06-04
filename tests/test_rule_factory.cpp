@@ -179,9 +179,13 @@ TEST_F(RuleFactoryTest, GetRegisteredConditionTypes) {
     
     EXPECT_FALSE(types.empty());
     EXPECT_TRUE(std::ranges::find(types, "EXTENSION") != types.end());
+    EXPECT_TRUE(std::ranges::find(types, "SIZE_GREATER_THAN") != types.end());
+    EXPECT_TRUE(std::ranges::find(types, "SIZE_LESS_THAN") != types.end());
+    EXPECT_TRUE(std::ranges::find(types, "AGE_OLDER_THAN") != types.end());
+    EXPECT_TRUE(std::ranges::find(types, "AGE_NEWER_THAN") != types.end());
     
-    // Should only have the default registered conditions for now
-    EXPECT_EQ(types.size(), 1);
+    // Should have all default registered conditions
+    EXPECT_EQ(types.size(), 5);
 }
 
 TEST_F(RuleFactoryTest, CustomConditionRegistration) {

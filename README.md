@@ -16,8 +16,8 @@ A configurable C++ application for automatically organizing files and directorie
 ## Supported Conditions
 
 - **Extension Matching**: Organize files by their file extension (`.pdf`, `.jpg`, etc.)
-- **Size Conditions**: Filter by file size (coming soon)
-- **Age Conditions**: Filter by file modification date (coming soon)
+- **Size Conditions**: Filter by file size with units (KB, MB, GB)
+- **Age Conditions**: Filter by file modification date with time units (d, m, y)
 - **Name Matching**: Pattern-based name matching with wildcards (coming soon)
 - **Empty Directory Detection**: Identify empty directories (coming soon)
 
@@ -157,11 +157,21 @@ EXTENSION: .pdf
 ```
 Matches files with the specified extension (case-insensitive).
 
+#### Size Conditions
+```ini
+SIZE_GREATER_THAN: 100MB
+SIZE_LESS_THAN: 10KB
+```
+Filter files by size. Supports units: B (bytes), KB, MB, GB, TB.
+
+#### Age Conditions
+```ini
+AGE_OLDER_THAN: 30d
+AGE_NEWER_THAN: 7d
+```
+Filter files by modification date. Supports units: d (days), m (months), y (years).
+
 #### Future Conditions (Planned)
-- `SIZE_GREATER_THAN: 100MB` - Files larger than specified size
-- `SIZE_LESS_THAN: 10KB` - Files smaller than specified size
-- `AGE_OLDER_THAN: 30d` - Files older than specified time (d=days, M=months, y=years)
-- `AGE_NEWER_THAN: 7d` - Files newer than specified time
 - `NAME_MATCHES: *backup*` - Files matching name pattern with wildcards
 - `IS_EMPTY: true` - Empty directories
 

@@ -8,6 +8,9 @@ set(TEST_SOURCES
     test_rule_factory.cpp
     test_directory_organizer.cpp
     test_integration.cpp
+    test_templates.cpp
+    test_size_condition.cpp
+    test_age_condition.cpp
 )
 
 # Create test executable

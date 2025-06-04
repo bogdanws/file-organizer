@@ -2,16 +2,22 @@
 #include <algorithm>
 #include <utility>
 
-ExtensionCondition::ExtensionCondition(std::string extension)
-    : targetExtension(std::move(extension)) {
+ExtensionCondition::ExtensionCondition(const std::string& extension)
+    : targetExtension(normalizeExtension(extension)) {
+}
+
+std::string ExtensionCondition::normalizeExtension(const std::string& extension) {
+    std::string normalized = extension;
+    
     // ensure extension starts with a dot
-    if (!targetExtension.empty() && targetExtension[0] != '.') {
-        targetExtension = "." + targetExtension;
+    if (!normalized.empty() && normalized[0] != '.') {
+        normalized = "." + normalized;
     }
     
     // convert to lowercase for case-insensitive comparison
-    std::ranges::transform(targetExtension,
-                           targetExtension.begin(), tolower);
+    std::ranges::transform(normalized, normalized.begin(), tolower);
+    
+    return normalized;
 }
 
 bool ExtensionCondition::evaluate(const ItemRepresentation& item) const {
@@ -26,14 +32,17 @@ bool ExtensionCondition::evaluate(const ItemRepresentation& item) const {
     std::ranges::transform(itemExtension,
                            itemExtension.begin(), tolower);
     
+    // get the stored extension value
+    const std::string& storedExtension = targetExtension.getValue();
+    
     // handle empty extension case
-    if (targetExtension.empty() || targetExtension == ".") {
+    if (storedExtension.empty() || storedExtension == ".") {
         return itemExtension.empty();
     }
     
-    return itemExtension == targetExtension;
+    return itemExtension == storedExtension;
 }
 
 std::string ExtensionCondition::describe() const {
-    return "Extension equals '" + targetExtension + "'";
+    return "Extension equals '" + targetExtension.getValue() + "'";
 } 

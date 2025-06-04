@@ -61,6 +61,53 @@ RULE:
   END_CONDITIONS
 END_RULE
 
+RULE:
+  TARGET_PATH: archives/large_files
+  PRIORITY: 40
+  APPLIES_TO: file
+  CONDITIONS:
+    SIZE_GREATER_THAN: 100MB
+  END_CONDITIONS
+END_RULE
+
+RULE:
+  TARGET_PATH: archives/small_files
+  PRIORITY: 41
+  APPLIES_TO: file
+  CONDITIONS:
+    SIZE_LESS_THAN: 1KB
+  END_CONDITIONS
+END_RULE
+
+RULE:
+  TARGET_PATH: archives/old_files
+  PRIORITY: 50
+  APPLIES_TO: file
+  CONDITIONS:
+    AGE_OLDER_THAN: 30d
+  END_CONDITIONS
+END_RULE
+
+RULE:
+  TARGET_PATH: recent/new_files
+  PRIORITY: 51
+  APPLIES_TO: file
+  CONDITIONS:
+    AGE_NEWER_THAN: 7d
+  END_CONDITIONS
+END_RULE
+
+# Example combining multiple conditions
+RULE:
+  TARGET_PATH: archives/old_large_files
+  PRIORITY: 60
+  APPLIES_TO: file
+  CONDITIONS:
+    AGE_OLDER_THAN: 90d
+    SIZE_GREATER_THAN: 50MB
+  END_CONDITIONS
+END_RULE
+
 # Catch-all rule for items not matching other rules
 RULE:
   TARGET_PATH: others
